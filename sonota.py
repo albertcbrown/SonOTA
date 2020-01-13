@@ -191,7 +191,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.setup_completed = False
         self.test = False
         self.upgrade = False
-        self.stream.set_nodelay(True)
+        if self.stream is not None:
+            self.stream.set_nodelay(True)
+        else:
+            self.set_nodelay(True)
+
         self.device_model = "ITA-GZ1-GL"
 
     def on_message(self, message):
